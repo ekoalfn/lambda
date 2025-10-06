@@ -1,0 +1,12 @@
+{
+  "Name": "lambda-openai-trigger",
+  "Description": "Trigger Lambda function periodically",
+  "ScheduleExpression": "rate(5 minutes)",
+  "State": "ENABLED",
+  "Targets": [
+    {
+      "Id": "1",
+      "Arn": "arn:aws:lambda:REGION:ACCOUNT_ID:function:lambda-openai-integration"
+    }
+  ]
+}
