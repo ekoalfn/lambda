@@ -1,17 +1,23 @@
 {
-  "name": "aws-lambda-openai-integration",
-  "version": "1.0.0",
-  "description": "AWS Lambda function triggered by EventBridge that fetches data from REST API and integrates with OpenAI",
-  "main": "index.js",
+  "name": "aws-lambda-automation-openai",
+  "version": "2.0.0",
+  "description": "AWS Lambda automation scripts that fetch data from REST API, analyze with OpenAI, and post results back",
+  "main": "handlers/staticAnalysis.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "zip -r function.zip . -x \"*.git*\" \"node_modules/.bin/*\" && aws lambda update-function-code --function-name lambda-openai-integration --zip-file fileb://function.zip"
+    "test:static": "node test-staticAnalysis.js",
+    "test:conditional": "node test-conditionalAnalysis.js",
+    "test:all": "npm run test:static && npm run test:conditional",
+    "deploy:static": "bash deploy-static.sh",
+    "deploy:conditional": "bash deploy-conditional.sh",
+    "deploy:all": "pwsh deploy-all.ps1"
   },
   "keywords": [
     "aws",
     "lambda",
     "openai",
-    "eventbridge"
+    "automation",
+    "eventbridge",
+    "rest-api"
   ],
   "author": "",
   "license": "ISC",

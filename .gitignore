@@ -5,7 +5,10 @@ package-lock.json
 # Environment variables
 .env
 
-# AWS
+# AWS Lambda deployment packages
+*.zip
+static-analysis.zip
+conditional-analysis.zip
 function.zip
 
 # Logs
@@ -21,3 +24,6 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
+
+# AWS responses
+response.json
