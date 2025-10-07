@@ -1,6 +1,6 @@
 # AWS Lambda Automation Scripts + OpenAI Integration
 
-Sistem automation Lambda yang memanggil AWS Serverless REST API Anda, memproses data dengan OpenAI, dan mengirim hasil kembali ke API sebagai single source of truth.
+Lambda automation system that calls your AWS Serverless REST API, processes data with OpenAI, and sends results back to the API as the single source of truth.
 
 ## 🎯 Architecture
 
@@ -9,10 +9,10 @@ EventBridge → Lambda Scripts → Your REST API ⟷ OpenAI
                                 (Source of Truth)
 ```
 
-**Your REST API** tetap menjadi single source of truth. Lambda hanya sebagai automation layer yang:
-1. Fetch data dari API Anda
-2. Analyze dengan OpenAI
-3. Post result kembali ke API Anda
+**Your REST API** remains the single source of truth. Lambda only serves as an automation layer that:
+1. Fetches data from your API
+2. Analyzes with OpenAI
+3. Posts results back to your API
 
 ## 📋 Features
 
@@ -47,13 +47,13 @@ lambda/
 
 ### Script 1: Static Analysis
 
-**Purpose:** Analisis statis untuk menghasilkan actionable tasks
+**Purpose:** Static analysis to generate actionable tasks
 
 **Flow:**
-1. Fetch Data1, Data2, Data3 dari REST API
+1. Fetch Data1, Data2, Data3 from REST API
 2. Build prompt: "For Data1, Data2, and Data3 what will actionable task?"
 3. Send to OpenAI → get result
-4. Post back result sebagai Data4
+4. Post back result as Data4
 
 **Trigger:** EventBridge scheduled (e.g., every 1 hour)
 
@@ -67,16 +67,16 @@ lambda/
 
 ### Script 2: Conditional Analysis
 
-**Purpose:** Analisis kondisional - hanya jika Data6 kosong
+**Purpose:** Conditional analysis - only if Data6 is empty
 
 **Flow:**
-1. Fetch Data1, Data2, Data3, Data5, Data6 dari REST API
+1. Fetch Data1, Data2, Data3, Data5, Data6 from REST API
 2. Check if Data6 is empty:
    - **NOT empty** → Skip (do nothing)
    - **Empty** → Continue
 3. Build prompt: "For Data1, Data2, and Data3 what will Data5?"
 4. Send to OpenAI → get result
-5. Post back result sebagai Data6
+5. Post back result as Data6
 
 **Trigger:** EventBridge scheduled (e.g., every 30 minutes)
 
@@ -100,7 +100,7 @@ npm install
 
 ### 2. Configure Environment Variables
 
-Copy `.env.example` to `.env` dan isi dengan konfigurasi Anda:
+Copy `.env.example` to `.env` and fill in your configuration:
 
 ```env
 # OpenAI Configuration
@@ -191,7 +191,7 @@ aws lambda add-permission --function-name conditional-analysis-lambda --statemen
 
 ## 📊 REST API Requirements
 
-Your AWS Serverless REST API harus menyediakan:
+Your AWS Serverless REST API must provide:
 
 ### GET Endpoint (Fetch Data)
 
@@ -241,15 +241,15 @@ Content-Type: application/json
 
 ## 🧠 Dynamic Prompt System
 
-Sistem menggunakan **intelligent prompt generation** yang otomatis:
+The system uses **intelligent prompt generation** that automatically:
 
-1. **Analyze Data Structure** - Deteksi tipe dan struktur data
+1. **Analyze Data Structure** - Detect data type and structure
 2. **Detect Domain** - Recognize financial, weather, content, etc.
-3. **Generate Context** - Build metadata dan field descriptions
+3. **Generate Context** - Build metadata and field descriptions
 4. **Create Instructions** - Domain-specific analysis instructions
 5. **Build Prompt** - Combine everything into optimal prompt
 
-**Lihat [PROMPT_SYSTEM.md](./PROMPT_SYSTEM.md) untuk detail lengkap.**
+**See [PROMPT_SYSTEM.md](./PROMPT_SYSTEM.md) for complete details.**
 
 ---
 
